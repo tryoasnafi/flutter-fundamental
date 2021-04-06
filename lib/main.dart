@@ -8,26 +8,25 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Aplikasi Hello World'),
+          title: Text('Latihan Container'),
         ),
-        body: Center(
-          child: Container(
-            color: Colors.lightBlue,
-            width: 150,
-            height: 100,
-            child: Text(
-              'saya sedang melatih kemampuan flutter saya',
-              // maxLines: 2,
-              // overflow: TextOverflow.ellipsis,
-              // softWrap: false,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          padding: EdgeInsets.fromLTRB(30, 30, 30, 40),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color: Colors.amber,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.amber.withOpacity(0.6),
+                spreadRadius: 6,
+                blurRadius: 7,
+                offset: Offset(0, 3),
               ),
-            ),
+            ],
+          ),
+          child: Container(
+            color: Colors.brown,
           ),
         ),
       ),
