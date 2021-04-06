@@ -10,22 +10,25 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('Aplikasi Hello World'),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text('Text 1'),
-            Text('Text 2'),
-            Text('Text 3'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Text 4'),
-                Text('Text 5'),
-                Text('Text 6'),
-              ],
+        body: Center(
+          child: Container(
+            color: Colors.lightBlue,
+            width: 150,
+            height: 100,
+            child: Text(
+              'saya sedang melatih kemampuan flutter saya',
+              // maxLines: 2,
+              // overflow: TextOverflow.ellipsis,
+              // softWrap: false,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ],
+          ),
         ),
       ),
     );
