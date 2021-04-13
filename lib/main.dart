@@ -1,6 +1,5 @@
+import 'package:first_flutter_app/color_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:first_flutter_app/post_result_model.dart';
-import 'package:first_flutter_app/user_model.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,50 +9,53 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  PostResult postResult;
-  User user;
+  ColorBloc bloc = ColorBloc();
+
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("API Demo"),
+          title: Text("BLoC tanpa Library"),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text((postResult != null)
-                  ? "${postResult.id} \n${postResult.name} \n${postResult.job} \n${postResult.created}"
-                  : ''),
-              Text((user != null) ? "${user.id} \n${user.name}" : ''),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      PostResult.connectToAPI("Tryo Asnafi", "Mobile Engineer")
-                          .then((value) {
-                        postResult = value;
-                        setState(() {});
-                      });
-                    },
-                    child: Text("POST"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      User.connectToAPI(12).then((value) {
-                        user = value;
-                        setState(() {});
-                      });
-                    },
-                    child: Text("GET"),
-                  ),
-                ],
-              ),
-            ],
-          ),
+          child: StreamBuilder(
+              stream: bloc.stateStream,
+              initialData: Colors.amber,
+              builder: (context, snapshot) {
+                return AnimatedContainer(
+                  color: snapshot.data,
+                  duration: Duration(milliseconds: 300),
+                  height: 100,
+                  width: 100,
+                );
+              }),
+        ),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                bloc.eventSink.add(ColorEvent.to_amber);
+              },
+              backgroundColor: Colors.amber,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                bloc.eventSink.add(ColorEvent.to_blue);
+              },
+              backgroundColor: Colors.blue,
+            ),
+          ],
         ),
       ),
     );
