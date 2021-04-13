@@ -8,41 +8,55 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int number = 0;
+  List<Widget> widgets = [];
+  int counter = 1;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Statefull Widget Demo"),
+          title: Text("Latihan ListView"),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "$number",
-                style: TextStyle(
-                  fontSize: _increaseFontSize(),
+        body: ListView(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      widgets.add(
+                        Text(
+                          "Data ke-$counter",
+                          style: TextStyle(
+                            fontSize: 35,
+                          ),
+                        ),
+                      );
+                      counter++;
+                    });
+                  },
+                  child: Text("Tambah Data"),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: _incrementCounter,
-                child: Text("Tambah Bilangan"),
-              ),
-            ],
-          ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      widgets.removeAt(0);
+                    });
+                  },
+                  child: Text("Hapus Data"),
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: widgets,
+            )
+          ],
         ),
       ),
     );
   }
-
-  void _incrementCounter() {
-    setState(() {
-      number++;
-    });
-  }
-
-  double _increaseFontSize() => 10 + 2 * number.toDouble();
 }
