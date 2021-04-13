@@ -2,34 +2,47 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int number = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Latihan Container'),
+          title: Text("Statefull Widget Demo"),
         ),
-        body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          padding: EdgeInsets.fromLTRB(30, 30, 30, 40),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: Colors.amber,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.amber.withOpacity(0.6),
-                spreadRadius: 6,
-                blurRadius: 7,
-                offset: Offset(0, 3),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "$number",
+                style: TextStyle(
+                  fontSize: _increaseFontSize(),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: _incrementCounter,
+                child: Text("Tambah Bilangan"),
               ),
             ],
-          ),
-          child: Container(
-            color: Colors.brown,
           ),
         ),
       ),
     );
   }
+
+  void _incrementCounter() {
+    setState(() {
+      number++;
+    });
+  }
+
+  double _increaseFontSize() => 10 + 2 * number.toDouble();
 }
