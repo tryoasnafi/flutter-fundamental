@@ -1,50 +1,44 @@
+import 'package:first_flutter_app/post_result_model.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  PostResult postResult;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainPage(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("API Demo"),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text((postResult != null)
+                  ? "${postResult.id} \n${postResult.name} \n${postResult.job} \n${postResult.created}"
+                  : "Tidak Ada Data"),
+              ElevatedButton(
+                onPressed: () {
+                  PostResult.connectToAPI("Tryo Asnafi", "Mobile Engineer")
+                      .then((value) {
+                    postResult = value;
+                    setState(() {});
+                  });
+                },
+                child: Text("POST"),
+              )
+            ],
+          ),
+        ),
+      ),
     );
-  }
-}
-
-class MainPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Latihan Media Query"),
-      ),
-      body: (MediaQuery.of(context).orientation == Orientation.portrait)
-          ? Column(
-              children: generateContainers(),
-            )
-          : Row(
-              children: generateContainers(),
-            ),
-    );
-  }
-
-  List<Widget> generateContainers() {
-    return [
-      Container(
-        color: Colors.amber,
-        width: 100,
-        height: 100,
-      ),
-      Container(
-        color: Colors.green,
-        width: 100,
-        height: 100,
-      ),
-      Container(
-        color: Colors.blue,
-        width: 100,
-        height: 100,
-      ),
-    ];
   }
 }
