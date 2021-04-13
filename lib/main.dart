@@ -2,58 +2,91 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+  final List<Widget> listText = [];
 
-class _MyAppState extends State<MyApp> {
-  List<Widget> widgets = [];
-  int counter = 1;
+  MyApp() {
+    for (var i = 0; i < 8; i++) {
+      listText.add(
+        Container(
+          margin: EdgeInsets.all(20),
+          child: Text(
+            "Text ini berada di lapisan tengah stack",
+            style: TextStyle(fontSize: 36),
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Latihan ListView"),
+          title: Text("Latihan Stack dan Align"),
         ),
-        body: ListView(
-          // mainAxisAlignment: MainAxisAlignment.center,
+        body: Stack(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Column(
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      widgets.add(
-                        Text(
-                          "Data ke-$counter",
-                          style: TextStyle(
-                            fontSize: 35,
-                          ),
+                Flexible(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          color: Colors.white,
                         ),
-                      );
-                      counter++;
-                    });
-                  },
-                  child: Text("Tambah Data"),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          color: Colors.black12,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      widgets.removeAt(0);
-                    });
-                  },
-                  child: Text("Hapus Data"),
+                Flexible(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          color: Colors.black12,
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widgets,
-            )
+            ListView(
+              children: listText,
+            ),
+            Align(
+              alignment: Alignment(0.9, 0.9),
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text("My Button"),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.amber,
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  textStyle: TextStyle(
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
